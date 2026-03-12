@@ -95,7 +95,7 @@
       end
       function onInit()
         initRecord(getDatabaseNode(), false)
-        setSkillsLocked(false)
+        setSkillsLocked(true)
         refreshSkillsSetIndicator()
       end
       function refreshDerived()
