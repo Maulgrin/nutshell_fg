@@ -33,6 +33,7 @@
             nTotal = nTotal + (tonumber(DB.getValue(node, sSkill, 0)) or 0)
           end
         end
+        skills_total.setValue(nTotal)
         skills_set.setValue("Skills Set")
         if nTotal == 5 then
           skills_set.setColor("00AA00")
@@ -135,7 +136,8 @@
       <number name="operate"><frame name="fielddark" /><bounds>180,525,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
       <buttonfield name="op_roll"><frame name="buttonup" /><bounds>230,525,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "operate", "Operate") end</script></buttonfield>
 
-      <stringcontrol name="skills_set"><bounds>85,580,140,20</bounds><static>Skills Set</static><readonly /></stringcontrol>
+      <stringcontrol name="skills_set"><bounds>85,580,120,20</bounds><static>Skills Set</static><readonly /></stringcontrol>
+      <number name="skills_total"><frame name="fielddark" /><bounds>220,575,50,28</bounds><readonly /></number>
 
       <genericcontrol name="theme_frame"><frame name="groupbox" /><bounds>330,155,260,110</bounds></genericcontrol>
       <stringcontrol name="theme_title"><bounds>345,145,120,20</bounds><static>POWER THEME</static><readonly /></stringcontrol>
