@@ -80,10 +80,10 @@
         <script>function onButtonPress() window.performAttackRoll(window.getDatabaseNode(), "closecombat", "Close Combat Opposed") end</script>
       </buttonfield>
 
-      <stringcontrol name="rangedattack_label"><bounds>48,72,130,20</bounds><static>Ranged Attack</static><readonly /></stringcontrol>
+      <stringcontrol name="rangedattack_label"><bounds>48,52,130,20</bounds><static>Ranged Attack</static><readonly /></stringcontrol>
       <buttonfield name="rangedattack_btn">
         <frame name="buttonup" />
-        <bounds>15,68,28,28</bounds>
+        <bounds>15,48,28,28</bounds>
         <text>R</text>
         <icon normal="action_attack" />
         <font>button-white</font>
@@ -91,10 +91,10 @@
         <script>function onButtonPress() window.performAttackRoll(window.getDatabaseNode(), "rangedcombat", "Ranged Attack") end</script>
       </buttonfield>
 
-      <stringcontrol name="powerattack_label"><bounds>48,102,130,20</bounds><static>Power Attack</static><readonly /></stringcontrol>
+      <stringcontrol name="powerattack_label"><bounds>48,82,130,20</bounds><static>Power Attack</static><readonly /></stringcontrol>
       <buttonfield name="powerattack_btn">
         <frame name="buttonup" />
-        <bounds>15,98,28,28</bounds>
+        <bounds>15,78,28,28</bounds>
         <text>R</text>
         <icon normal="action_attack" />
         <font>button-white</font>
