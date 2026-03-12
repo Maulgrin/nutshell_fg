@@ -26,34 +26,52 @@
       function performAttackRoll(...)
         return nsCall("performAttackRoll", ...)
       end
+      function refreshSkillsSetIndicator()
+        local nTotal = 0
+        local aSkills = {"closecombat", "rangedcombat", "perception", "survival", "endurance", "fitness", "persuasion", "expertise", "power", "skulduggery", "operate"}
+        local node = getDatabaseNode()
+        if node then
+          for _, sSkill in ipairs(aSkills) do
+            nTotal = nTotal + (tonumber(DB.getValue(node, sSkill, 0)) or 0)
+          end
+        end
+        skills_set.setValue("Skills Set")
+        if nTotal == 5 then
+          skills_set.setColor("00AA00")
+        else
+          skills_set.setColor("FF0000")
+        end
+      end
       function onInit()
         initRecord(getDatabaseNode(), false)
+        refreshSkillsSetIndicator()
       end
       function refreshDerived()
         updateDerived(getDatabaseNode())
+        refreshSkillsSetIndicator()
       end
     </script>
     <sheetdata>
-      <stringcontrol name="strikes_label"><bounds>175,18,120,20</bounds><static>STRIKES</static><readonly /></stringcontrol>
-      <stringcontrol name="strikes_max_label"><bounds>175,38,40,20</bounds><static>Max</static><readonly /></stringcontrol>
-      <number name="strikesmax"><frame name="fielddark" /><bounds>175,58,45,30</bounds><readonly /></number>
-      <stringcontrol name="strikes_taken_label"><bounds>230,38,45,20</bounds><static>Taken</static><readonly /></stringcontrol>
-      <number name="strikestaken"><frame name="fielddark" /><bounds>230,58,45,30</bounds><script>function onValueChanged() window.refreshDerived() end</script></number>
-      <stringcontrol name="strikes_left_label"><bounds>285,38,40,20</bounds><static>Left</static><readonly /></stringcontrol>
-      <number name="strikesleft"><frame name="fielddark" /><bounds>285,58,45,30</bounds><readonly /></number>
+      <stringcontrol name="strikes_label"><bounds>275,18,120,20</bounds><static>STRIKES</static><readonly /></stringcontrol>
+      <stringcontrol name="strikes_max_label"><bounds>275,38,40,20</bounds><static>Max</static><readonly /></stringcontrol>
+      <number name="strikesmax"><frame name="fielddark" /><bounds>275,58,45,30</bounds><readonly /></number>
+      <stringcontrol name="strikes_taken_label"><bounds>330,38,45,20</bounds><static>Taken</static><readonly /></stringcontrol>
+      <number name="strikestaken"><frame name="fielddark" /><bounds>330,58,45,30</bounds><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <stringcontrol name="strikes_left_label"><bounds>385,38,40,20</bounds><static>Left</static><readonly /></stringcontrol>
+      <number name="strikesleft"><frame name="fielddark" /><bounds>385,58,45,30</bounds><readonly /></number>
 
-      <stringcontrol name="strain_label"><bounds>350,18,120,20</bounds><static>STRAIN</static><readonly /></stringcontrol>
-      <stringcontrol name="strain_max_label"><bounds>350,38,40,20</bounds><static>Max</static><readonly /></stringcontrol>
-      <number name="strainmax"><frame name="fielddark" /><bounds>350,58,45,30</bounds><readonly /></number>
-      <stringcontrol name="strain_taken_label"><bounds>405,38,45,20</bounds><static>Taken</static><readonly /></stringcontrol>
-      <number name="straintaken"><frame name="fielddark" /><bounds>405,58,45,30</bounds><script>function onValueChanged() window.refreshDerived() end</script></number>
-      <stringcontrol name="strain_left_label"><bounds>460,38,35,20</bounds><static>Left</static><readonly /></stringcontrol>
-      <number name="strainleft"><frame name="fielddark" /><bounds>460,58,35,30</bounds><readonly /></number>
+      <stringcontrol name="strain_label"><bounds>450,18,120,20</bounds><static>STRAIN</static><readonly /></stringcontrol>
+      <stringcontrol name="strain_max_label"><bounds>450,38,40,20</bounds><static>Max</static><readonly /></stringcontrol>
+      <number name="strainmax"><frame name="fielddark" /><bounds>450,58,45,30</bounds><readonly /></number>
+      <stringcontrol name="strain_taken_label"><bounds>505,38,45,20</bounds><static>Taken</static><readonly /></stringcontrol>
+      <number name="straintaken"><frame name="fielddark" /><bounds>505,58,45,30</bounds><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <stringcontrol name="strain_left_label"><bounds>560,38,35,20</bounds><static>Left</static><readonly /></stringcontrol>
+      <number name="strainleft"><frame name="fielddark" /><bounds>560,58,35,30</bounds><readonly /></number>
 
-      <stringcontrol name="closecombat_attack_label"><bounds>15,18,145,20</bounds><static>Close Combat Opposed</static><readonly /></stringcontrol>
+      <stringcontrol name="closecombat_attack_label"><bounds>48,22,185,20</bounds><static>Close Combat Opposed</static><readonly /></stringcontrol>
       <buttonfield name="closecombat_btn">
         <frame name="buttonup" />
-        <bounds>15,36,28,28</bounds>
+        <bounds>15,18,28,28</bounds>
         <text>R</text>
         <icon normal="action_attack" />
         <font>button-white</font>
@@ -61,10 +79,10 @@
         <script>function onButtonPress() window.performAttackRoll(window.getDatabaseNode(), "closecombat", "Close Combat Opposed") end</script>
       </buttonfield>
 
-      <stringcontrol name="rangedattack_label"><bounds>15,68,100,20</bounds><static>Ranged Attack</static><readonly /></stringcontrol>
+      <stringcontrol name="rangedattack_label"><bounds>48,72,130,20</bounds><static>Ranged Attack</static><readonly /></stringcontrol>
       <buttonfield name="rangedattack_btn">
         <frame name="buttonup" />
-        <bounds>15,86,28,28</bounds>
+        <bounds>15,68,28,28</bounds>
         <text>R</text>
         <icon normal="action_attack" />
         <font>button-white</font>
@@ -118,6 +136,8 @@
       <stringcontrol name="op_label"><bounds>30,510,140,20</bounds><static>Operate</static><readonly /></stringcontrol>
       <number name="operate"><frame name="fielddark" /><bounds>180,505,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
       <buttonfield name="op_roll"><frame name="buttonup" /><bounds>230,505,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "operate", "Operate") end</script></buttonfield>
+
+      <stringcontrol name="skills_set"><bounds>30,560,250,20</bounds><justify>center</justify><readonly /></stringcontrol>
 
       <genericcontrol name="theme_frame"><frame name="groupbox" /><bounds>300,135,259,120</bounds></genericcontrol>
       <stringcontrol name="theme_title"><bounds>315,125,120,20</bounds><static>POWER THEME</static><readonly /></stringcontrol>
