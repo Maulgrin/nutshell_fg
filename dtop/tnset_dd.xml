@@ -5,7 +5,7 @@
     <bounds>
       <anchored>
         <left anchor="left" offset="420" />
-        <top anchor="bottom" offset="-280" />
+        <top anchor="bottom" offset="-300" />
         <size><width>180</width><height>70</height></size>
       </anchored>
     </bounds>
