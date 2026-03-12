@@ -24,6 +24,56 @@
       function performAttackRoll(...)
         return nsCall("performAttackRoll", ...)
       end
+      function randomizeSkills(...)
+        return nsCall("randomizeSkills", ...)
+      end
+      function resetSkills(...)
+        return nsCall("resetSkills", ...)
+      end
+      local bSkillsLocked = false
+      function isSkillsLocked()
+        return bSkillsLocked
+      end
+      function setSkillsReadOnly(bLock)
+        local aControls = {closecombat, rangedcombat, perception, survival, endurance, fitness, persuasion, expertise, power, skulduggery, operate}
+        for _, wControl in ipairs(aControls) do
+          if wControl and wControl.setReadOnly then
+            wControl.setReadOnly(bLock and true or false)
+          end
+        end
+        local aActionButtons = {skills_random_btn, skills_reset_btn}
+        for _, wButton in ipairs(aActionButtons) do
+          if wButton and wButton.setReadOnly then
+            wButton.setReadOnly(bLock and true or false)
+          end
+        end
+      end
+      function setActionButtonsColor(sColor)
+        local aActionButtons = {skills_random_btn, skills_reset_btn}
+        for _, wButton in ipairs(aActionButtons) do
+          if wButton and wButton.setColor then
+            wButton.setColor(sColor)
+          end
+        end
+      end
+      function setSkillsLocked(bLock)
+        bSkillsLocked = bLock and true or false
+        setSkillsReadOnly(bSkillsLocked)
+        if bSkillsLocked then
+          setActionButtonsColor("FFFFFF")
+        else
+          setActionButtonsColor("FF0000")
+        end
+        if skills_lock_open_btn and skills_lock_open_btn.setVisible then
+          skills_lock_open_btn.setVisible(not bSkillsLocked)
+        end
+        if skills_lock_closed_btn and skills_lock_closed_btn.setVisible then
+          skills_lock_closed_btn.setVisible(bSkillsLocked)
+        end
+      end
+      function toggleSkillsLocked()
+        setSkillsLocked(not isSkillsLocked())
+      end
       function refreshSkillsSetIndicator()
         local nTotal = 0
         local aSkills = {"closecombat", "rangedcombat", "perception", "survival", "endurance", "fitness", "persuasion", "expertise", "power", "skulduggery", "operate"}
@@ -43,6 +93,7 @@
       end
       function onInit()
         initRecord(getDatabaseNode(), true)
+        setSkillsLocked(false)
         refreshSkillsSetIndicator()
       end
       function refreshDerived()
@@ -147,8 +198,12 @@
       <number name="operate"><frame name="fielddark" /><bounds>180,525,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
       <buttonfield name="op_roll"><frame name="buttonup" /><bounds>230,525,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "operate", "Operate") end</script></buttonfield>
 
-      <stringcontrol name="skills_set"><bounds>85,580,120,20</bounds><static>Skills Set</static><readonly /></stringcontrol>
-      <number name="skills_total"><frame name="fielddark" /><bounds>220,575,50,28</bounds><readonly /></number>
+      <stringcontrol name="skills_set"><bounds>30,580,95,20</bounds><justify>center</justify><readonly /></stringcontrol>
+      <number name="skills_total"><frame name="fielddark" /><bounds>128,575,35,28</bounds><readonly /></number>
+      <buttonfield name="skills_random_btn"><frame name="buttonup" /><bounds>166,575,40,28</bounds><text>Rand</text><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() if window.isSkillsLocked() then return end; window.randomizeSkills(window.getDatabaseNode()); window.refreshDerived() end</script></buttonfield>
+      <buttonfield name="skills_reset_btn"><frame name="buttonup" /><bounds>209,575,40,28</bounds><text>Zero</text><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() if window.isSkillsLocked() then return end; window.resetSkills(window.getDatabaseNode()); window.refreshDerived() end</script></buttonfield>
+      <buttonfield name="skills_lock_open_btn"><frame name="buttonup" /><bounds>252,575,33,28</bounds><icon normal="padlock_open" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.toggleSkillsLocked() end</script></buttonfield>
+      <buttonfield name="skills_lock_closed_btn"><frame name="buttonup" /><bounds>252,575,33,28</bounds><icon normal="padlock_closed" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.toggleSkillsLocked() end</script></buttonfield>
 
       <genericcontrol name="theme_frame"><frame name="groupbox" /><bounds>330,155,260,110</bounds></genericcontrol>
       <stringcontrol name="theme_title"><bounds>345,145,120,20</bounds><static>POWER THEME</static><readonly /></stringcontrol>

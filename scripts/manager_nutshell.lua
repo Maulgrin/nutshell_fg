@@ -2,8 +2,14 @@ local SKILLS = {
   "closecombat", "rangedcombat", "perception", "survival", "endurance",
   "fitness", "persuasion", "expertise", "power", "skulduggery", "operate"
 }
+local RANDOMSEEDED = false
 
 function onInit()
+  if not RANDOMSEEDED then
+    math.randomseed(os.time())
+    RANDOMSEEDED = true
+  end
+
   ActionsManager.registerResultHandler("nutshellskill", onSkillRoll)
   ActionsManager.registerResultHandler("nutshellattack", onAttackRoll)
 
@@ -37,6 +43,71 @@ function initRecord(nodeRecord, bNPC)
   end
   if bNPC and DB.getValue(nodeRecord, "nonid_name", nil) == nil then
     DB.setValue(nodeRecord, "nonid_name", "string", "")
+  end
+
+  updateDerived(nodeRecord)
+end
+
+function resetSkills(nodeRecord)
+  if not nodeRecord then
+    return
+  end
+
+  for _, sSkill in ipairs(SKILLS) do
+    DB.setValue(nodeRecord, sSkill, "number", 0)
+  end
+
+  updateDerived(nodeRecord)
+end
+
+function randomizeSkills(nodeRecord)
+  if not nodeRecord then
+    return
+  end
+
+  local tValues = {}
+  for _, sSkill in ipairs(SKILLS) do
+    tValues[sSkill] = 0
+  end
+
+  local nNegativeBudget = math.random(0, 3)
+  local nNegativeAssigned = 0
+  while nNegativeAssigned < nNegativeBudget do
+    local aChoices = {}
+    for _, sSkill in ipairs(SKILLS) do
+      if tValues[sSkill] > -2 then
+        table.insert(aChoices, sSkill)
+      end
+    end
+    if #aChoices == 0 then
+      break
+    end
+
+    local sPick = aChoices[math.random(#aChoices)]
+    tValues[sPick] = tValues[sPick] - 1
+    nNegativeAssigned = nNegativeAssigned + 1
+  end
+
+  local nPositiveBudget = 5 + nNegativeAssigned
+  local nPositiveAssigned = 0
+  while nPositiveAssigned < nPositiveBudget do
+    local aChoices = {}
+    for _, sSkill in ipairs(SKILLS) do
+      if tValues[sSkill] < 3 then
+        table.insert(aChoices, sSkill)
+      end
+    end
+    if #aChoices == 0 then
+      break
+    end
+
+    local sPick = aChoices[math.random(#aChoices)]
+    tValues[sPick] = tValues[sPick] + 1
+    nPositiveAssigned = nPositiveAssigned + 1
+  end
+
+  for _, sSkill in ipairs(SKILLS) do
+    DB.setValue(nodeRecord, sSkill, "number", tValues[sSkill])
   end
 
   updateDerived(nodeRecord)
