@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <windowclass name="charsheet_main">
+    <placement>
+      <size width="760" height="760" />
+    </placement>
+    <script>
+      function nsCall(sFunc, ...)
+        if _G and _G[sFunc] then
+          return _G[sFunc](...)
+        end
+        if manager_nutshell and manager_nutshell[sFunc] then
+          return manager_nutshell[sFunc](...)
+        end
+        return nil
+      end
+      function initRecord(...)
+        return nsCall("initRecord", ...)
+      end
+      function updateDerived(...)
+        return nsCall("updateDerived", ...)
+      end
+      function performSkillRoll(...)
+        return nsCall("performSkillRoll", ...)
+      end
+      function performAttackRoll(...)
+        return nsCall("performAttackRoll", ...)
+      end
+      function onInit()
+        initRecord(getDatabaseNode(), false)
+      end
+      function refreshDerived()
+        updateDerived(getDatabaseNode())
+      end
+    </script>
+    <sheetdata>
+      <stringcontrol name="strikes_label"><bounds>175,18,120,20</bounds><static>STRIKES</static><readonly /></stringcontrol>
+      <stringcontrol name="strikes_max_label"><bounds>175,38,40,20</bounds><static>Max</static><readonly /></stringcontrol>
+      <number name="strikesmax"><frame name="fielddark" /><bounds>175,58,45,30</bounds><readonly /></number>
+      <stringcontrol name="strikes_taken_label"><bounds>230,38,45,20</bounds><static>Taken</static><readonly /></stringcontrol>
+      <number name="strikestaken"><frame name="fielddark" /><bounds>230,58,45,30</bounds><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <stringcontrol name="strikes_left_label"><bounds>285,38,40,20</bounds><static>Left</static><readonly /></stringcontrol>
+      <number name="strikesleft"><frame name="fielddark" /><bounds>285,58,45,30</bounds><readonly /></number>
+
+      <stringcontrol name="strain_label"><bounds>350,18,120,20</bounds><static>STRAIN</static><readonly /></stringcontrol>
+      <stringcontrol name="strain_max_label"><bounds>350,38,40,20</bounds><static>Max</static><readonly /></stringcontrol>
+      <number name="strainmax"><frame name="fielddark" /><bounds>350,58,45,30</bounds><readonly /></number>
+      <stringcontrol name="strain_taken_label"><bounds>405,38,45,20</bounds><static>Taken</static><readonly /></stringcontrol>
+      <number name="straintaken"><frame name="fielddark" /><bounds>405,58,45,30</bounds><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <stringcontrol name="strain_left_label"><bounds>460,38,35,20</bounds><static>Left</static><readonly /></stringcontrol>
+      <number name="strainleft"><frame name="fielddark" /><bounds>460,58,35,30</bounds><readonly /></number>
+
+      <stringcontrol name="closecombat_attack_label"><bounds>15,18,145,20</bounds><static>Close Combat Opposed</static><readonly /></stringcontrol>
+      <buttonfield name="closecombat_btn">
+        <frame name="buttonup" />
+        <bounds>15,36,28,28</bounds>
+        <text>R</text>
+        <icon normal="action_attack" />
+        <font>button-white</font>
+        <stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe>
+        <script>function onButtonPress() window.performAttackRoll(window.getDatabaseNode(), "closecombat", "Close Combat Opposed") end</script>
+      </buttonfield>
+
+      <stringcontrol name="rangedattack_label"><bounds>15,68,100,20</bounds><static>Ranged Attack</static><readonly /></stringcontrol>
+      <buttonfield name="rangedattack_btn">
+        <frame name="buttonup" />
+        <bounds>15,86,28,28</bounds>
+        <text>R</text>
+        <icon normal="action_attack" />
+        <font>button-white</font>
+        <stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe>
+        <script>function onButtonPress() window.performAttackRoll(window.getDatabaseNode(), "rangedcombat", "Ranged Attack") end</script>
+      </buttonfield>
+
+      <genericcontrol name="skills_frame"><frame name="groupbox" /><bounds>15,135,280,455</bounds></genericcontrol>
+      <stringcontrol name="skills_title"><bounds>30,125,80,20</bounds><static>SKILLS</static><readonly /></stringcontrol>
+
+      <stringcontrol name="cc_label"><bounds>30,160,140,20</bounds><static>Close Combat</static><readonly /></stringcontrol>
+      <number name="closecombat"><frame name="fielddark" /><bounds>180,155,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="cc_roll"><frame name="buttonup" /><bounds>230,155,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "closecombat", "Close Combat") end</script></buttonfield>
+
+      <stringcontrol name="rc_label"><bounds>30,195,140,20</bounds><static>Ranged Combat</static><readonly /></stringcontrol>
+      <number name="rangedcombat"><frame name="fielddark" /><bounds>180,190,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="rc_roll"><frame name="buttonup" /><bounds>230,190,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "rangedcombat", "Ranged Combat") end</script></buttonfield>
+
+      <stringcontrol name="per_label"><bounds>30,230,140,20</bounds><static>Perception</static><readonly /></stringcontrol>
+      <number name="perception"><frame name="fielddark" /><bounds>180,225,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="per_roll"><frame name="buttonup" /><bounds>230,225,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "perception", "Perception") end</script></buttonfield>
+
+      <stringcontrol name="surv_label"><bounds>30,265,140,20</bounds><static>Survival</static><readonly /></stringcontrol>
+      <number name="survival"><frame name="fielddark" /><bounds>180,260,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="surv_roll"><frame name="buttonup" /><bounds>230,260,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "survival", "Survival") end</script></buttonfield>
+
+      <stringcontrol name="end_label"><bounds>30,300,140,20</bounds><static>Endurance</static><readonly /></stringcontrol>
+      <number name="endurance"><frame name="fielddark" /><bounds>180,295,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="end_roll"><frame name="buttonup" /><bounds>230,295,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "endurance", "Endurance") end</script></buttonfield>
+
+      <stringcontrol name="fit_label"><bounds>30,335,140,20</bounds><static>Fitness</static><readonly /></stringcontrol>
+      <number name="fitness"><frame name="fielddark" /><bounds>180,330,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="fit_roll"><frame name="buttonup" /><bounds>230,330,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "fitness", "Fitness") end</script></buttonfield>
+
+      <stringcontrol name="pers_label"><bounds>30,370,140,20</bounds><static>Persuasion</static><readonly /></stringcontrol>
+      <number name="persuasion"><frame name="fielddark" /><bounds>180,365,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="pers_roll"><frame name="buttonup" /><bounds>230,365,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "persuasion", "Persuasion") end</script></buttonfield>
+
+      <stringcontrol name="exp_label"><bounds>30,405,140,20</bounds><static>Expertise</static><readonly /></stringcontrol>
+      <number name="expertise"><frame name="fielddark" /><bounds>180,400,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="exp_roll"><frame name="buttonup" /><bounds>230,400,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "expertise", "Expertise") end</script></buttonfield>
+
+      <stringcontrol name="pow_label"><bounds>30,440,140,20</bounds><static>Power</static><readonly /></stringcontrol>
+      <number name="power"><frame name="fielddark" /><bounds>180,435,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="pow_roll"><frame name="buttonup" /><bounds>230,435,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "power", "Power") end</script></buttonfield>
+
+      <stringcontrol name="skul_label"><bounds>30,475,140,20</bounds><static>Skullduggery</static><readonly /></stringcontrol>
+      <number name="skulduggery"><frame name="fielddark" /><bounds>180,470,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="skul_roll"><frame name="buttonup" /><bounds>230,470,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "skulduggery", "Skullduggery") end</script></buttonfield>
+
+      <stringcontrol name="op_label"><bounds>30,510,140,20</bounds><static>Operate</static><readonly /></stringcontrol>
+      <number name="operate"><frame name="fielddark" /><bounds>180,505,40,28</bounds><min>-2</min><max>3</max><displaysign /><script>function onValueChanged() window.refreshDerived() end</script></number>
+      <buttonfield name="op_roll"><frame name="buttonup" /><bounds>230,505,28,28</bounds><text>Roll</text><icon normal="action_roll" /><font>button-white</font><stateframe><pressed name="buttonup" offset="-1,-1,-1,-1" nobaseframe="true" /></stateframe><script>function onButtonPress() window.performSkillRoll(window.getDatabaseNode(), "operate", "Operate") end</script></buttonfield>
+
+      <genericcontrol name="theme_frame"><frame name="groupbox" /><bounds>300,135,259,120</bounds></genericcontrol>
+      <stringcontrol name="theme_title"><bounds>315,125,120,20</bounds><static>POWER THEME</static><readonly /></stringcontrol>
+      <formattedtextfield name="powertheme"><frame offset="7,5,7,5" /><bounds>315,160,229,70</bounds><empty>Click to enter power theme</empty></formattedtextfield>
+
+      <genericcontrol name="gear_frame"><frame name="groupbox" /><bounds>300,275,259,315</bounds></genericcontrol>
+      <stringcontrol name="gear_title"><bounds>315,265,80,20</bounds><static>GEAR</static><readonly /></stringcontrol>
+      <formattedtextfield name="gear"><frame offset="7,5,7,5" /><bounds>315,300,229,265</bounds><empty>Click to enter gear</empty></formattedtextfield>
+    </sheetdata>
+  </windowclass>
+</root>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <windowclass name="npc" copy="record_window_tabbed">
+    <minimize>minimized_npc</minimize>
+    <gmexport>npc</gmexport>
+    <tab>
+      <name>main</name>
+      <resource>tab_main</resource>
+      <class>npc_main</class>
+      <embed />
+    </tab>
+    <tab merge="add">
+      <name>notes</name>
+      <resource>tab_notes</resource>
+      <class>record_content_notes</class>
+      <embed />
+    </tab>
+    <tab merge="add">
+      <name>pictures</name>
+      <resource>tab_pictures</resource>
+      <class>record_content_pictures</class>
+      <embed />
+    </tab>
+  </windowclass>
+  <windowclass name="npc_header" copy="record_header" />
+</root>

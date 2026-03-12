@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root version="3.3">
+  <campaign>
+    <tnset type="number">8</tnset>
+  </campaign>
+  <story>
+    <id-00001>
+      <name type="string">Nutshell - Target Number Ladder</name>
+      <text type="formattedtext"><p><b>Nutshell Target Number Ladder</b></p><p>4 Trivial</p><p>6 Routine</p><p>8 Standard</p><p>10 Tough</p><p>12 Hard</p><p>14 Extreme</p><p>Set the current TN with the host desktop widgets.</p></text>
+    </id-00001>
+    <id-00002>
+      <name type="string">Nutshell - Strikes by Difference</name>
+      <text type="formattedtext"><p><b>Strikes by Difference</b></p><p>Difference 0-1 = 1 Strike</p><p>Difference 2-4 = 2 Strikes</p><p>Difference 5-7 = 3 Strikes</p><p>Difference 8+ = 4 Strikes</p><p>Failure = 0 Strikes</p></text>
+    </id-00002>
+    <id-00003>
+      <name type="string">Nutshell - Core Skill Rules</name>
+      <text type="formattedtext"><p><b>Core Rolls</b></p><p>All skill and attack rolls are 2d6 + Skill.</p><p>Strikes Max = 4 + Endurance.</p><p>Strain Max = 4 + Power.</p><p>Skill values normally range from -2 to +3.</p><p>Total skill sum target is 5, with up to -3 total negatives.</p></text>
+    </id-00003>
+  </story>
+  <npc>
+    <id-00001>
+      <name type="string">Bandit</name>
+      <nonid_name type="string">Ruffian</nonid_name>
+      <closecombat type="number">1</closecombat>
+      <rangedcombat type="number">1</rangedcombat>
+      <perception type="number">0</perception>
+      <survival type="number">0</survival>
+      <endurance type="number">1</endurance>
+      <fitness type="number">1</fitness>
+      <persuasion type="number">-1</persuasion>
+      <expertise type="number">0</expertise>
+      <power type="number">0</power>
+      <skulduggery type="number">1</skulduggery>
+      <operate type="number">0</operate>
+            <strikestaken type="number">0</strikestaken>
+      <straintaken type="number">0</straintaken>
+      <powertheme type="string"></powertheme>
+      <gear type="formattedtext"><p>Knife, pistol, bandana, stolen coins</p></gear>
+      <notes type="formattedtext"><p>Quick ambusher. Uses cover and retreat.</p></notes>
+      <rolls type="formattedtext"><p>Close Combat: 2d6+1</p><p>Ranged Attack: 2d6+1</p></rolls>
+    </id-00001>
+    <id-00002>
+      <name type="string">Guard</name>
+      <nonid_name type="string">Watchman</nonid_name>
+      <closecombat type="number">1</closecombat>
+      <rangedcombat type="number">0</rangedcombat>
+      <perception type="number">1</perception>
+      <survival type="number">0</survival>
+      <endurance type="number">2</endurance>
+      <fitness type="number">1</fitness>
+      <persuasion type="number">0</persuasion>
+      <expertise type="number">0</expertise>
+      <power type="number">0</power>
+      <skulduggery type="number">-1</skulduggery>
+      <operate type="number">0</operate>
+            <strikestaken type="number">0</strikestaken>
+      <straintaken type="number">0</straintaken>
+      <powertheme type="string"></powertheme>
+      <gear type="formattedtext"><p>Spear, armor, lantern, whistle</p></gear>
+      <notes type="formattedtext"><p>Steady defender. Holds chokepoints.</p></notes>
+      <rolls type="formattedtext"><p>Close Combat: 2d6+1</p><p>Perception: 2d6+1</p></rolls>
+    </id-00002>
+    <id-00003>
+      <name type="string">Beast</name>
+      <nonid_name type="string">Wild Creature</nonid_name>
+      <closecombat type="number">2</closecombat>
+      <rangedcombat type="number">-2</rangedcombat>
+      <perception type="number">1</perception>
+      <survival type="number">2</survival>
+      <endurance type="number">2</endurance>
+      <fitness type="number">2</fitness>
+      <persuasion type="number">-2</persuasion>
+      <expertise type="number">-2</expertise>
+      <power type="number">0</power>
+      <skulduggery type="number">0</skulduggery>
+      <operate type="number">-2</operate>
+            <strikestaken type="number">0</strikestaken>
+      <straintaken type="number">0</straintaken>
+      <powertheme type="string"></powertheme>
+      <gear type="formattedtext"><p>Natural weapons only</p></gear>
+      <notes type="formattedtext"><p>Charges, mauls, and keeps pressure on weaker targets.</p></notes>
+      <rolls type="formattedtext"><p>Close Combat: 2d6+2</p><p>Fitness: 2d6+2</p></rolls>
+    </id-00003>
+  </npc>
+</root>

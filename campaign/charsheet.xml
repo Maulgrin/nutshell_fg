@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <windowclass name="charsheet" copy="charsheet_base">
+    <tab>
+      <name>main</name>
+      <resource>tab_main</resource>
+      <class>charsheet_main</class>
+    </tab>
+    <tab merge="add">
+      <name>notes</name>
+      <resource>tab_notes</resource>
+      <class>record_content_notes</class>
+    </tab>
+    <tab merge="add">
+      <name>pictures</name>
+      <resource>tab_pictures</resource>
+      <class>record_content_pictures</class>
+    </tab>
+  </windowclass>
+</root>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <panel name="tnset_dd" modes="host">
+    <class>tnset_dd</class>
+    <bounds>
+      <anchored>
+        <left anchor="left" offset="420" />
+        <top anchor="bottom" offset="-280" />
+        <size><width>180</width><height>70</height></size>
+      </anchored>
+    </bounds>
+    <dynamic />
+    <locked />
+  </panel>
+  <windowclass name="tnset_dd">
+    <frame>groupbox</frame>
+    <sizelimits resize="both"><maximum height="70" /><minimum height="70" /></sizelimits>
+    <sheetdata>
+      <stringcontrol name="tn_lbl"><frame name="fieldrequired" /><bounds>26,41,120,25</bounds><center /><static>Quick Set TN</static><readonly /></stringcontrol>
+      <combobox name="tn_ddbox">
+        <frame name="fieldlight" offset="7,5,7,5" />
+        <bounds>30,11,126,30</bounds>
+        <listdirection>down</listdirection>
+        <parameters>
+          <labels>4 Trivial|6 Routine|8 Standard|10 Tough|12 Hard|14 Extreme</labels>
+          <values>4|6|8|10|12|14</values>
+        </parameters>
+        <unsorted />
+        <font>reference-b</font>
+        <script>function onValueChanged() local nTN = tonumber(window.tn_ddbox.getValue()) or 8; DB.setValue("campaign.tnset", "number", nTN); ChatManager.SystemMessage("Nutshell TN set to " .. nTN) end</script>
+      </combobox>
+    </sheetdata>
+  </windowclass>
+</root>

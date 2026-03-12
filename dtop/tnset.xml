@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <panel name="tnset" modes="host">
+    <class>tnset</class>
+    <bounds>
+      <anchored>
+        <left anchor="left" offset="420" />
+        <top anchor="bottom" offset="-205" />
+        <size><width>90</width><height>70</height></size>
+      </anchored>
+    </bounds>
+    <dynamic />
+    <locked />
+  </panel>
+  <windowclass name="tnset">
+    <frame>groupbox</frame>
+    <sizelimits resize="both"><maximum height="70" /><minimum height="70" /></sizelimits>
+    <sheetdata>
+      <stringcontrol name="tn_lbl"><frame name="fieldrequired" /><bounds>16,41,60,25</bounds><center /><static>SET TN</static><readonly /></stringcontrol>
+      <number name="tn_num"><frame name="fieldlight" /><bounds>26,3,40,40</bounds><default>8</default><font>reference-b-large</font><script>function onValueChanged() local nTN = window.tn_num.getValue(); if nTN &lt; 1 then nTN = 1 end; if nTN &gt; 30 then nTN = 30 end; DB.setValue("campaign.tnset", "number", nTN); ChatManager.SystemMessage("Nutshell TN set to " .. nTN) end</script></number>
+    </sheetdata>
+  </windowclass>
+</root>

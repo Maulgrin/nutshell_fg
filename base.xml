@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root version="3.0" release="0">
+  <description>
+    <text>Nutshell RPG starter ruleset for Fantasy Grounds</text>
+    <author>OpenAI for Todd Beaumont</author>
+  </description>
+  <importruleset source="CoreRPG" />
+  <importinfo>
+    <acceptfrom ruleset="CoreRPG" />
+  </importinfo>
+
+  <includefile source="campaign/charsheet.xml" />
+  <includefile source="campaign/charsheet_main.xml" />
+  <includefile source="campaign/npc.xml" />
+  <includefile source="campaign/npc_main.xml" />
+  <includefile source="dtop/mods.xml" />
+  <includefile source="dtop/tnset.xml" />
+  <includefile source="dtop/tnset_dd.xml" />
+  <includefile source="strings/strings_nutshell.xml" />
+
+  <script file="scripts/manager_nutshell.lua" />
+  <script name="manager_nutshell" file="scripts/manager_nutshell.lua" />
+</root>

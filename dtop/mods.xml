@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <panel name="mods" modes="all">
+    <class>mods</class>
+    <bounds>
+      <anchored>
+        <left anchor="left" offset="650" />
+        <top anchor="bottom" offset="-105" />
+        <size><width>260</width><height>70</height></size>
+      </anchored>
+    </bounds>
+    <dynamic />
+    <locked />
+  </panel>
+  <windowclass name="mods">
+    <frame>groupbox</frame>
+    <sizelimits resize="both"><maximum width="260" height="70" /><minimum width="260" height="70" /></sizelimits>
+    <sheetdata>
+      <number name="plus1"><frame name="fielddark" /><bounds>10,8,40,40</bounds><readonly /><default>1</default><description>Plus 1</description><displaysign /><font>reference-b-large</font><script>function onClickDown(x, y) ModifierStack.addSlot("Mod", getValue()) end</script></number>
+      <number name="plus2"><frame name="fielddark" /><bounds>50,8,40,40</bounds><readonly /><default>2</default><description>Plus 2</description><displaysign /><font>reference-b-large</font><script>function onClickDown(x, y) ModifierStack.addSlot("Mod", getValue()) end</script></number>
+      <number name="plus3"><frame name="fielddark" /><bounds>90,8,40,40</bounds><readonly /><default>3</default><description>Plus 3</description><displaysign /><font>reference-b-large</font><script>function onClickDown(x, y) ModifierStack.addSlot("Mod", getValue()) end</script></number>
+      <number name="minus1"><frame name="fieldlight" /><bounds>132,8,40,40</bounds><readonly /><default>-1</default><description>Minus 1</description><displaysign /><font>reference-b-large</font><script>function onClickDown(x, y) ModifierStack.addSlot("Mod", getValue()) end</script></number>
+      <number name="minus2"><frame name="fieldlight" /><bounds>172,8,40,40</bounds><readonly /><default>-2</default><description>Minus 2</description><displaysign /><font>reference-b-large</font><script>function onClickDown(x, y) ModifierStack.addSlot("Mod", getValue()) end</script></number>
+      <number name="minus3"><frame name="fieldlight" /><bounds>212,8,40,40</bounds><readonly /><default>-3</default><description>Minus 3</description><displaysign /><font>reference-b-large</font><script>function onClickDown(x, y) ModifierStack.addSlot("Mod", getValue()) end</script></number>
+      <stringcontrol name="mods_lbl"><frame name="fieldrequired" offset="2,2,2,2" /><bounds>58,46,146,21</bounds><center /><static>Additional Modifiers</static><readonly /></stringcontrol>
+    </sheetdata>
+  </windowclass>
+</root>
