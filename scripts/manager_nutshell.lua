@@ -4,6 +4,24 @@ local SKILLS = {
 }
 local RANDOMSEEDED = false
 
+local function isHostSession()
+  if Session and Session.IsHost ~= nil then
+    if type(Session.IsHost) == "function" then
+      return Session.IsHost()
+    end
+    return Session.IsHost and true or false
+  end
+
+  if User and User.isHost ~= nil then
+    if type(User.isHost) == "function" then
+      return User.isHost()
+    end
+    return User.isHost and true or false
+  end
+
+  return false
+end
+
 function onInit()
   if not RANDOMSEEDED then
     math.randomseed(os.time())
@@ -13,7 +31,7 @@ function onInit()
   ActionsManager.registerResultHandler("nutshellskill", onSkillRoll)
   ActionsManager.registerResultHandler("nutshellattack", onAttackRoll)
 
-  if Session and Session.IsHost and Session.IsHost() then
+  if isHostSession() then
     DB.setPublic("campaign.tnset", true)
   end
 
@@ -246,7 +264,7 @@ end
 function onSkillRoll(rSource, rTarget, rRoll)
   local nTotal = ActionsManager.total(rRoll)
   local nTN
-  if Session and Session.IsHost and Session.IsHost() then
+  if isHostSession() then
     nTN = getTargetNumber()
   else
     nTN = tonumber(rRoll.nTN) or getTargetNumber()
@@ -270,7 +288,7 @@ end
 function onAttackRoll(rSource, rTarget, rRoll)
   local nTotal = ActionsManager.total(rRoll)
   local nTN
-  if Session and Session.IsHost and Session.IsHost() then
+  if isHostSession() then
     nTN = getTargetNumber()
   else
     nTN = tonumber(rRoll.nTN) or getTargetNumber()
