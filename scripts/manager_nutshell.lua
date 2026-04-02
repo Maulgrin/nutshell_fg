@@ -13,6 +13,10 @@ function onInit()
   ActionsManager.registerResultHandler("nutshellskill", onSkillRoll)
   ActionsManager.registerResultHandler("nutshellattack", onAttackRoll)
 
+  if Session and Session.IsHost and Session.IsHost() then
+    DB.setPublic("campaign.tnset", true)
+  end
+
   if DB.getValue("campaign.tnset", 0) == 0 then
     DB.setValue("campaign.tnset", "number", 8)
   end
@@ -241,7 +245,12 @@ end
 
 function onSkillRoll(rSource, rTarget, rRoll)
   local nTotal = ActionsManager.total(rRoll)
-  local nTN = tonumber(rRoll.nTN) or getTargetNumber()
+  local nTN
+  if Session and Session.IsHost and Session.IsHost() then
+    nTN = getTargetNumber()
+  else
+    nTN = tonumber(rRoll.nTN) or getTargetNumber()
+  end
   local nDiff = nTotal - nTN
   local bSuccess = nDiff >= 0
 
@@ -260,7 +269,12 @@ end
 
 function onAttackRoll(rSource, rTarget, rRoll)
   local nTotal = ActionsManager.total(rRoll)
-  local nTN = tonumber(rRoll.nTN) or getTargetNumber()
+  local nTN
+  if Session and Session.IsHost and Session.IsHost() then
+    nTN = getTargetNumber()
+  else
+    nTN = tonumber(rRoll.nTN) or getTargetNumber()
+  end
   local nDiff = nTotal - nTN
   local bSuccess = nDiff >= 0
   local nStrikes = strikesFromDifference(nDiff)
